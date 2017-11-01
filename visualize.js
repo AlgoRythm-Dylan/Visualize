@@ -31,6 +31,8 @@ var MusicVisualizer = {
             audioContext = new (window.AudioContext || window.webkitAudioContext)();
             audioSource = audioContext.createMediaElementSource(audio);
             analyzerNode = audioContext.createAnalyser();
+            audioSource.connect(analyzerNode);
+            audioSource.connect(audioContext.destination);
             new Uint8Array(analyzerNode.frequencyBinCount);
         }
         // Make the local variables public
