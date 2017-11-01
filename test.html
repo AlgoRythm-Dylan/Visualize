@@ -34,6 +34,14 @@ var audio  = document.getElementById("audioPlayer");
 var canvas = document.getElementById("canvas");
 
 var visualizer = new MusicVisualizer.Visualizer(canvas, audio);
+var primaryPaint = new MusicVisualizer.SimplePaint();
+primaryPaint.g = 150;
+primaryPaint.b = 50;
+visualizer.paints[MusicVisualizer.PRIMARY] = primaryPaint;
+visualizer.paints[MusicVisualizer.SECONDARY] = new MusicVisualizer.HighPerformancePaint("rgb(40, 40, 40)");
+visualizer.renderer = new MusicVisualizer.SimpleBarRenderer();
+visualizer.analyzerNode.fftSize = 1024;
+visualizer.audioFilters.push(new MusicVisualizer.simpleDampenFilter());
 
 function fullSize(canvas){
     canvas.height = canvas.offsetHeight;
