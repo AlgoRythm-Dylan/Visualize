@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <head>
     <title>Visualize.js test</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet"> 
     <style>
         #canvas{
             position:absolute;
@@ -19,11 +20,28 @@
         #audioPlayer:hover{
             opacity:1;
         }
+        #instructions{
+            font-size:5em;
+            color:white;
+            position:absolute;
+            top:10px;
+            right:10px;
+            margin:0;
+            padding:0;
+            font-family:roboto;
+            font-weight:100;
+            pointer-events:none;
+            user-select:none;
+            -ms-user-select:none;
+            -moz-user-select:none;
+            -webkit-user-select:none;
+        }
     </style>
 </head>
 <body>
 
     <canvas id="canvas" height=300 width=500></canvas>
+    <p id="instructions">Drop an audio file onto this page</p>
     <audio controls=true id="audioPlayer"></audio>
 
 </body>
@@ -66,6 +84,7 @@ document.body.ondrop = function(e){
     e.stopPropagation();
     audio.src = URL.createObjectURL(e.dataTransfer.files[0]);
     audio.play();
+    document.getElementById("instructions").style.display = "none";
 }
 
 // A couple keys cus why not
