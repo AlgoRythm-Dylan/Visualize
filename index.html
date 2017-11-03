@@ -9,6 +9,7 @@
             left:0;
             height:100%;
             width:100%;
+            background:rgba(0, 0, 0, .4);
         }
         #audioPlayer{
             position:absolute;
@@ -22,7 +23,7 @@
         }
         #instructions{
             font-size:5em;
-            color:white;
+            color:rgb(120, 120, 120);
             position:absolute;
             top:10px;
             right:10px;
@@ -36,6 +37,13 @@
             -moz-user-select:none;
             -webkit-user-select:none;
         }
+        body{
+            background-image:url("moon.jpg");
+            background-repeat:none;
+            background-attachment:fixed;
+            background-size:cover;
+            background-position:center center;
+        }
     </style>
 </head>
 <body>
@@ -46,19 +54,23 @@
 
 </body>
 <script src="visualize.js"></script>
+<script src="zen-renderer.js"></script>
 <script>
 
 var audio  = document.getElementById("audioPlayer");
 var canvas = document.getElementById("canvas");
 
-var visualizer = new MusicVisualizer.Visualizer(canvas, audio);
-var primaryPaint = new MusicVisualizer.SimplePaint();
+/*var primaryPaint = new MusicVisualizer.SimplePaint();
 primaryPaint.g = 150;
 primaryPaint.b = 50;
 visualizer.paints[MusicVisualizer.PRIMARY] = primaryPaint;
 visualizer.paints[MusicVisualizer.SECONDARY] = new MusicVisualizer.HighPerformancePaint("rgb(40, 40, 40)");
-visualizer.renderer = new MusicVisualizer.SimpleBarRenderer();
-visualizer.analyzerNode.fftSize = 1024;
+visualizer.renderer = new MusicVisualizer.SimpleBarRenderer();*/
+
+var visualizer = new MusicVisualizer.Visualizer(canvas, audio);
+var zenRenderer = new ZenRenderer(150);
+visualizer.renderer = zenRenderer;
+visualizer.analyzerNode.fftSize = 512;
 visualizer.audioFilters.push(new MusicVisualizer.simpleDampenFilter());
 
 function fullSize(canvas){
